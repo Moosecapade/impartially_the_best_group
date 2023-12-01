@@ -6,7 +6,7 @@ using namespace std;
 int main(int argc[], char* argv[])
 {
     // Header
-    cout << "Author: Sarah Turner, " << endl;
+    cout << "Author: Sarah Turner, Erin Nichole Bailey, Ryan _______" << endl;
     cout << "Date: 11/29/2023" << endl;
     cout << "Course: CS 311 (Data Structures and Algorithms)" << endl;
     cout << "Description: Program to find the shortest route between cities" << endl;
