@@ -28,11 +28,15 @@ public:
     bool visited;    // Used to track if the vertex has been visited / discovered in DFS or BFS
     double distance; // Used to track distance for shortest path algorithm
 
-    Vertex(int id = 0, string name = "") {
+    Vertex(int id = 0, string cityCode = "", string name = "", int pop = 0, int elev = 0, int prev = -1, bool visited = FALSE, double dist = 0) {
         this->id = id;
+        this->cityCode = cityCode;
         this->name = name;
-        this->prev = -1;
-        this->visited = false;
+        this->population = pop;
+        this->elevation = elev;
+        this->prev = prev;
+        this->visited = visited;
+        this->distance = distance;
     }
 };
 
