@@ -20,9 +20,13 @@ using namespace std;
 class Vertex {
 public:
     int id;          // The index of the vertex. starting from 0
+    string cityCode; // 2 letter city code
     string name;     // The name of the vertex. Additional attributes can be added
+    int population;  // City population
+    int elevation;   // City elevation
     int prev;        // Used to track previous vertex when using DFS or checkCycle
     bool visited;    // Used to track if the vertex has been visited / discovered in DFS or BFS
+    double distance; // Used to track distance for shortest path algorithm
 
     Vertex(int id = 0, string name = "") {
         this->id = id;
