@@ -8,6 +8,8 @@
  *  element i's right child is 2i+2
  */
 
+int const HEAP_INF = 276447232;
+
 //*******************************************************************************************************************************************************************
 // @brief gets the maximum value in the heap
 // @return the highest value integer in the heap
@@ -189,18 +191,18 @@ void Heap::percolateDown(int index) {
 
         // swap index with thegreatest of its children, if any
         if(this->heaparray[2 * index + 2] > this->heaparray[2 * index + 1]) {
-            if(this->heaparray[index] < this->heaparray[2 * index + 2]){
+            if(this->heaparray[index] > this->heaparray[2 * index + 2]){
                 swap(index, 2 * index + 2);
                 percolateDown(2 * index + 2);
             }
         }
-        else if(this->heaparray[index] < this->heaparray[2 * index + 1]) {
+        else if(this->heaparray[index] > this->heaparray[2 * index + 1]) {
             swap(index, 2 * index + 1);
             percolateDown(2 * index + 1);            
         }
 
     }else if(2 * index + 1 < count){ // index only has left child
-        if(this->heaparray[index] < this->heaparray[2 * index + 1]) {
+        if(this->heaparray[index] > this->heaparray[2 * index + 1]) {
             swap(index, 2 * index + 1);
             percolateDown(2 * index + 1);            
         }
@@ -220,7 +222,7 @@ void Heap::percolateUp(int index) {
     //at each level
     //  check parent
 
-    if((index - 1) / 2 >= 0 && this->heaparray[index] > this->heaparray[(index - 1) / 2]) {            // checks if parent exists in the heap
+    if((index - 1) / 2 >= 0 && this->heaparray[index] < this->heaparray[(index - 1) / 2]) {            // checks if parent exists in the heap
         swap(index, (index - 1) / 2);                                                                  //   and if parent is less than current node
         percolateUp((index - 1) / 2);                                                                  //   swap and try to percolate further
     } else return;  // return conditions:
@@ -263,10 +265,10 @@ void Heap::insert(T value) {
  * @brief  Removes the max value from the heap
  * @return the value that was removed
  */
-T Heap::removeMax() {
+T Heap::removeMin() {
     T max = this->heaparray[0];
     swap(0, count - 1);                     // swap max to back of array
-    this->heaparray[count - 1] = (T)NULL;   // nullify it
+    this->heaparray[count - 1].distance = HEAP_INF;   // nullify it
     count--;                                // reduce count
     percolateDown(0);                // percolate swapped value down heap
 
@@ -280,7 +282,7 @@ string Heap::toString()
     string s = "[ ";
     for (int i = 0; i < count; i++)
     {
-        s += to_string(heaparray[i]) + " ";
+        s += heaparray[i].name + " ";
     }
     s += "]";
     return s;
@@ -296,11 +298,11 @@ void Heap::printHeap() {
 /**
  * @brief  Prints the values in an array
  */
-void printArray(int values[], int length) {
+void printArray(T values[], int length) {
     int i;
     cout << "[ ";
     for (i = 0; i < length; i++) {
-        cout << values[i] << " ";
+        cout << values[i].name << " ";
     }
     cout << "]\n";
 }
