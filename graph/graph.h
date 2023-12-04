@@ -5,6 +5,8 @@
 #include <list>
 #include <queue>
 #include <iostream>
+#include <limits>
+#include "heap.h"
 using namespace std;
 
 // =======================================================
@@ -28,7 +30,7 @@ public:
     bool visited;    // Used to track if the vertex has been visited / discovered in DFS or BFS
     double distance; // Used to track distance for shortest path algorithm
 
-    Vertex(int id = 0, string cityCode = "", string name = "", int pop = 0, int elev = 0, int prev = -1, bool visited = FALSE, double dist = 0) {
+    Vertex(int id = 0, string cityCode = "", string name = "", int pop = 0, int elev = 0, int prev = -1, bool visited = false, double dist = 0) {
         this->id = id;
         this->cityCode = cityCode;
         this->name = name;
@@ -37,6 +39,84 @@ public:
         this->prev = prev;
         this->visited = visited;
         this->distance = distance;
+    }
+
+    /**
+     * @brief equality comp operator (v. dumb, only compares distance)
+     * @param other the heap to be copied
+     * @return Heap& a reference to the heap
+     */
+    bool operator==(const Vertex &other){
+        if(this->distance == other.distance) return true;
+        return false;
+    }
+
+    /**
+     * @brief not equal comp operator (v. dumb, only compares distance)
+     * @param other the heap to be copied
+     * @return Heap& a reference to the heap
+     */
+    bool operator!=(const Vertex &other){
+        if(this->distance == other.distance) return false;
+        return true;
+    }
+
+    /**
+     * @brief less or equal op (v. dumb, only compares distance)
+     * @param other the heap to be copied
+     * @return Heap& a reference to the heap
+     */
+    bool operator<=(const Vertex &other){
+        if(this->distance <= other.distance) return true;
+        return false;
+    }
+
+    /**
+     * @brief great or equal op (v. dumb, only compares distance)
+     * @param other the heap to be copied
+     * @return Heap& a reference to the heap
+     */
+    bool operator>=(const Vertex &other){
+        if(this->distance >= other.distance) return true;
+        return false;
+    }
+
+    /**
+     * @brief less op (v. dumb, only compares distance)
+     * @param other the heap to be copied
+     * @return Heap& a reference to the heap
+     */
+    bool operator<(const Vertex &other){
+        if(this->distance < other.distance) return true;
+        return false;
+    }
+
+    /**
+     * @brief great op (v. dumb, only compares distance)
+     * @param other the heap to be copied
+     * @return Heap& a reference to the heap
+     */
+    bool operator>(const Vertex &other){
+        if(this->distance > other.distance) return true;
+        return false;
+    }
+
+    /**
+     * @brief equality operator (smart copies entirely)
+     * @param other the heap to be copied
+     * @return Heap& a reference to the heap
+     */
+    Vertex &operator=(const Vertex &other){
+        this->id = other.id;
+        this->cityCode = other.cityCode;
+        this->name = other.name;
+        this->population = other.population;
+        this->elevation = other.elevation;
+        this->prev = other.prev;
+        this->visited = other.visited;
+        this->distance = other.distance;
+
+        return *this;
     }
 };
 
@@ -135,5 +215,14 @@ public:
      * @brief Purpose: Print the graph
      */
     void printGraph();
+
+    /**
+ * @brief Purpose: Finds the shortest path between 2 cities using Djikstras Algorithm
+ * @param start: Starting vertex
+ * @param end: Ending vertex
+ * @param &distance: Distance of the shortest path, is returned by reference 
+ * @return vector<vertex>: The path taken to get from start to end
+ */
+vector<Vertex> Graph::djikstraAlgorithm(Vertex start, Vertex end, double& distance);
 
 };
