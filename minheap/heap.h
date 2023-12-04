@@ -5,6 +5,7 @@
 #pragma once
 
 #include <iostream>
+#include "graph.h"
 using namespace std;
 
 // =======================================================
@@ -14,9 +15,9 @@ using namespace std;
 // @brief This file defines a Heap class
 //=======================================================
 
-typedef int T;  // the el_t type is int for now
+typedef Vertex T;  // the el_t type is Vertex for now
 
-// Print an array of integers
+// Print an array of T's
 void printArray(T values[], int length);
 
 /**
@@ -132,7 +133,7 @@ public:
      * @brief removes the maximum element from the heap, maintaining the heap property.
      * @return int the maximum element. return -1 if heap is empty
      */
-    T removeMax();
+    T removeMin();
 
     /*
      * @brief converts the heap into a string
