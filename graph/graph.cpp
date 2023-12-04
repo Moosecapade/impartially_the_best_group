@@ -41,7 +41,7 @@ Graph::Graph(int n)
 Graph::~Graph()
 {
     this->vertices.clear();
-    for (int i = 0; i < this->adjList.size(); ++i)
+    for (int i = 0; i < (int)this->adjList.size(); ++i)
     {
         this->adjList[i].clear();
     }
@@ -111,7 +111,7 @@ vector<int> Graph::DepthFirstSearch(int v)
     }
 
     // Set prev to -1 and visited to false for all vertices
-    for (int i = 0; i < this->vertices.size(); ++i)
+    for (int i = 0; i < (int)this->vertices.size(); ++i)
     {
         this->vertices[i].prev = -1;
         this->vertices[i].visited = false;
@@ -164,7 +164,7 @@ vector<int> Graph::BreadthFirstSearch(int v)
     }
 
     // Set discovered to false for all vertices
-    for (int i = 0; i < this->vertices.size(); ++i)
+    for (int i = 0; i < (int)this->vertices.size(); ++i)
     {
         this->vertices[i].visited = false;
     }
@@ -180,7 +180,7 @@ vector<int> Graph::BreadthFirstSearch(int v)
         pathOfTraversal.push_back(current);   // Update path of traversal
 
         // Enqueue current vertex's undiscovered neighbors to be visited next
-        for (int i = 0; i < this->adjList[current].size(); ++i)
+        for (int i = 0; i < (int)this->adjList[current].size(); ++i)
         {
             int neighbor = this->adjList[current][i].to_vertex;  // Get neighbor vertex
 
@@ -210,7 +210,7 @@ bool Graph::checkCycle()
     }
 
     // Set visited to false and prev to -1 for all vertices
-    for (int i = 0; i < this->vertices.size(); ++i)
+    for (int i = 0; i < (int)this->vertices.size(); ++i)
     {
         this->vertices[i].visited = false;
         this->vertices[i].prev = -1;
@@ -231,7 +231,7 @@ bool Graph::checkCycle()
         }
 
         // Push current vertex's unvisited neighbors onto stack to be visited next
-        for (int i = 0; i < this->adjList[current].size(); ++i)
+        for (int i = 0; i < (int)this->adjList[current].size(); ++i)
         {
             int neighbor = this->adjList[current][i].to_vertex;  // Get neighbor vertex
 
@@ -274,4 +274,112 @@ void Graph::printGraph()
         cout << endl;
     }
     cout << endl;
+}
+
+/**
+ * @brief Purpose: Finds the shortest path between 2 cities using Djikstras Algorithm
+ * @param start: Starting vertex
+ * @param end: Ending vertex
+ * @param &distance: Distance of the shortest path, is returned by reference 
+ * @return vector<vertex>: The path taken to get from start to end
+ */
+vector<Vertex> Graph::djikstraAlgorithm(Vertex start, Vertex end, double& distance)
+{
+    Heap priorityQueue;  // Stores vertices with priority based on distance from start.
+
+    // Set all vertices to have infinite distance and no prev vertex
+    for (Vertex v : this->vertices)
+    {
+        v.distance = numeric_limits<double>::infinity();
+        v.prev = -1;
+    }
+
+    start.distance = 0;  // Starting vertex has 0 distance
+    priorityQueue.insert(start);
+
+    // While the queue is not empty
+    while (priorityQueue.get_count() > 0)
+    {
+        Vertex current = priorityQueue.removeMin();  // Get vertex with minimum distance from start
+        current.visited = true;
+
+        // For each neighbor of vertex current calculate distance and insert neighbor into the queue
+        for (int i = 0; i < this->adjList[current.id].size(); ++i)
+        {
+            Vertex& neighbor = vertices[adjList[current.id][i].to_vertex];          // Get currents neighbor
+            double newDistance = current.distance + adjList[current.id][i].weight;  // Calculate distance to neighbor using the current vertex
+
+            // If the shortest path has not yet been found for neighbor
+            if (neighbor.visited == false)
+            {
+                // If the new path to the neighbor is shorter
+                if (newDistance < neighbor.distance)
+                {
+                    // Update the previous vertex and distance
+                    neighbor.prev = current.id;
+                    neighbor.distance = newDistance;
+
+                    Vertex* verticesInQueue = priorityQueue.get_heaparray();  // Used to get vertices inside the priority queue
+                    bool existInQueue = false;                                // Used to check if a vertex exist in the priority queue
+                    int position = 0;                                         // Used to track a verticies position in the priority queue
+                
+                    // Check to see if the neighbor is already in the queue, if it exist get its position
+                    for (int i = 0; i < priorityQueue.get_count(); ++i)
+                    {
+                        Vertex v = verticesInQueue[i];  // Get current vertex
+
+                        // If it matches with neighbor, get its position in the queue
+                        if (neighbor.id == v.id)
+                        {
+                            existInQueue = true;
+                            position = i;
+                        }
+                    }
+
+                    // If the vertex is already in the priority queue update its priority with the new distance
+                    if (existInQueue)
+                    {
+                        priorityQueue.changeKey(position, neighbor.distance);  // Update priority of the neighbor
+                    }
+                    // Otherwise insert it into the priority queue
+                    else
+                    {
+                        priorityQueue.insert(neighbor);
+                    }
+                }
+            }
+        }
+    }
+
+    // After the loop the shortest path has been calculated
+
+    vector<Vertex> shortestPath;  // Used to return the shortest path
+    vector<Vertex> temp;          // Used to store the shortest path in reverse order
+
+    // Get the end vertex from vertex list
+    for (Vertex v : vertices)
+    {
+        // If the end vertex is found
+        if (v.id == end.id)
+        {
+            temp.push_back(v);       // Put it in the temp list
+            distance = v.distance;   // Set distance to be returned by reference
+        }
+    }
+    int previous = temp[0].prev;  // Used to store index of previous vertex, is set to prev of end vertex
+
+    // Fill the temporary list with the shortest path in reverse order
+    while (previous != -1)
+    {
+        temp.push_back(vertices[previous]);
+        previous = vertices[previous].prev;
+    }
+
+    // Use the path in reverse order to fill the vector with the path in order
+    for (int i = temp.size() - 1; i >= 0; --i)
+    {
+        shortestPath.push_back(temp[i]);
+    }
+
+    return shortestPath; 
 }
