@@ -1,0 +1,26 @@
+Problem Description 
+  
+In this section, describe the problem you are solving and the functionalities of your program to solve the problem.  
+Program Design  
+
+Describe the overall design of your program.  
+
+    What algorithm did you choose for implementing the shortest path problem? Why this algorithm is applicable here?  
+    What classes do you use or add? Why do you choose to use those classes?  
+
+System Implementation  
+
+Describe the details of your implementations. Did you run into problems in your implementation? How did you overcome those problems?  
+  
+Results  
+  
+    Did your results match the output in the “sample_results.txt” file?  
+    What are your answers to the following questions:  
+        The shortest distance and path from FI to GG  
+        The shortest distance and path from PD to PM  
+        The shortest distance and path from PM to PD  
+        The Shortest distance and path from SB to PR  
+
+Conclusion  
+  
+Give the conclusion and summary of your project. Did it solve the intended problem successfully?  What functionalities does your program have? What lessons have you learned from this assignment?  
