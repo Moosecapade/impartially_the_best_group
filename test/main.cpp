@@ -31,17 +31,19 @@ int main(int argc, char* argv[])
 
         while (infile)
         {
-            cout << "Getting input: \n";
+            // uncomment couts for testing
+            //cout << "Getting input: \n";
             infile >> id;
-            cout << "Id: " << id << endl;
+            //cout << "Id: " << id << endl;
             infile >> cityCode;
-            cout << "CC: " << cityCode << endl;
+            //cout << "CC: " << cityCode << endl;
             infile >> cityName;
-            cout << "Name: " << cityName << endl;
+            //cout << "Name: " << cityName << endl;
             infile >> population;
-            cout << "Population: " << population << endl;
+            //cout << "Population: " << population << endl;
             infile >> elevation;
-            cout << "Elevation: " << elevation << endl;
+            //cout << "Elevation: " << elevation << endl;
+            
             
             Vertex city;
             city.id = id;

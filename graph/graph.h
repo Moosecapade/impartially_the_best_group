@@ -6,7 +6,7 @@
 #include <queue>
 #include <iostream>
 #include <limits>
-#include "heap.h"
+//#include "heap.h"
 using namespace std;
 
 // =======================================================
@@ -223,6 +223,6 @@ public:
  * @param &distance: Distance of the shortest path, is returned by reference 
  * @return vector<vertex>: The path taken to get from start to end
  */
-vector<Vertex> Graph::djikstraAlgorithm(Vertex start, Vertex end, double& distance);
+vector<Vertex> djikstraAlgorithm(Vertex start, Vertex end, double& distance);
 
 };
