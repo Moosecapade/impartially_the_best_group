@@ -9,7 +9,7 @@ DEPS = $(SRCS:.cpp=.d)
 	$(CC) -c $(CFLAGS) $< -o $@
 
 test: main.o graph.o heap.o
-	$(CC) test.o graph.o main.o -o prog9
+	$(CC) heap.o graph.o main.o -o prog9
 	
 clean:
 	rm *.o prog9
