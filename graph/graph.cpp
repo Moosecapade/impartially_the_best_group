@@ -288,7 +288,7 @@ vector<Vertex> Graph::djikstraAlgorithm(Vertex start, Vertex end, double& distan
     Heap priorityQueue;  // Stores vertices with priority based on distance from start.
 
     // Set all vertices to have infinite distance and no prev vertex
-    for (Vertex v : this->vertices)
+    for (Vertex& v : this->vertices)
     {
         v.distance = numeric_limits<double>::infinity();
         v.prev = -1;
@@ -312,11 +312,15 @@ vector<Vertex> Graph::djikstraAlgorithm(Vertex start, Vertex end, double& distan
             // If the shortest path has not yet been found for neighbor
             if (neighbor.visited == false)
             {
+                cout << "neighbor not visited" << endl;
+                cout << "NewDistance: " << newDistance << endl;
+                cout << "Neighbor distance: " << neighbor.distance << endl;
                 // If the new path to the neighbor is shorter
                 if (newDistance < neighbor.distance)
                 {
                     // Update the previous vertex and distance
                     neighbor.prev = current.id;
+                    cout << "Neighbor prev in loop: " << neighbor.prev << endl;
                     neighbor.distance = newDistance;
 
                     Vertex* verticesInQueue = priorityQueue.get_heaparray();  // Used to get vertices inside the priority queue
@@ -367,12 +371,18 @@ vector<Vertex> Graph::djikstraAlgorithm(Vertex start, Vertex end, double& distan
         }
     }
     int previous = temp[0].prev;  // Used to store index of previous vertex, is set to prev of end vertex
-
+    std::cout << "previous: " << previous << endl;
     // Fill the temporary list with the shortest path in reverse order
     while (previous != -1)
     {
         temp.push_back(vertices[previous]);
         previous = vertices[previous].prev;
+    }
+
+    for (Vertex v : temp)
+    {
+        std::cout << "reverse order" << endl;
+        std::cout << v.cityCode << endl;
     }
 
     // Use the path in reverse order to fill the vector with the path in order
