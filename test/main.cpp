@@ -1,17 +1,19 @@
 #include <iostream>
 #include <fstream>
+#include <vector>
 #include "graph.h"
+//#include "heap.h"
 using namespace std;
 
 int main(int argc, char* argv[])
 {
     // Header
-    cout << "Author: Sarah Turner, Erin Nichole Bailey, " << endl;
+    cout << "Author: Sarah Turner, Erin Nichole Bailey, Ryan Bebereia" << endl;
     cout << "Date: 11/29/2023" << endl;
     cout << "Course: CS 311 (Data Structures and Algorithms)" << endl;
     cout << "Description: Program to find the shortest route between cities" << endl;
     cout << "-------------------------------------------------------------------" << endl;
-
+    
     ifstream infile;
     Graph cityGraph;
 
@@ -36,6 +38,9 @@ int main(int argc, char* argv[])
             infile >> id;
             //cout << "Id: " << id << endl;
             infile >> cityCode;
+            if (cityCode.length() != 2 || cityCode[0] < 65 || cityCode[0] > 90 || cityCode[1] < 65 || cityCode[1] > 90){ //Ryan
+                cout << "not valid"; //Ryan
+            } //Ryan
             //cout << "CC: " << cityCode << endl;
             infile >> cityName;
             //cout << "Name: " << cityName << endl;
@@ -55,8 +60,12 @@ int main(int argc, char* argv[])
         }
     }
     infile.close();
+    
+    
+        
+        
+        
 
-    // Read edges from input file (roads)
     infile.open("road.txt");
     if (!infile)
     {
@@ -75,6 +84,40 @@ int main(int argc, char* argv[])
             cityGraph.addDirectedEdge(fromCity, toCity, distance);
         }
     }
+
+    // Read edges from input file (roads)
+    int counter = 0; //Ryan
+    string abb1 = argv[1];
+    string abb2 = argv[2];
+    bool valid1 = false;
+    bool valid2 = false;
+    int index1 = 0;
+    int index2 = 0;
+        for (int i = 0; i < cityGraph.vertices.size(); i++){ //Ryan
+            counter++;
+            if (abb1 == cityGraph.vertices[i].cityCode){
+                valid1 = true;
+                index1 = i;
+            }
+            if (abb2 == cityGraph.vertices[i].cityCode){
+                valid2 = true;
+                index2 = i;
+            }
+            if (valid1 == true && valid2 == true){
+                break;
+            }
+            
+        } //Ryan
+        if (valid1 == false ){
+            cout << "Invalid City Code: " << abb1; //Ryan
+        }
+        if (valid2 == false ){
+            cout << "Invalid City Code: " << abb2; //Ryan
+        }
+
+    double tempDistance = 0;
+    vector<Vertex> newcitypath;
+    newcitypath = cityGraph.djikstraAlgorithm(cityGraph.vertices[index1], cityGraph.vertices[index2], tempDistance);
 
     return 0;
 }
