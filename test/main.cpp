@@ -123,11 +123,11 @@ int main(int argc, char* argv[])
     cout << endl;
     */
     Graph map;
-    Vertex A(1, "A", "", 0, 0,-1, false, 0.0);
-    Vertex B(2, "B", "", 0, 0,-1, false, 0.0);
-    Vertex C(3, "C", "", 0, 0,-1, false, 0.0);
-    Vertex D(4, "D", "", 0, 0,-1, false, 0.0);
-    Vertex E(5, "E", "", 0, 0,-1, false, 0.0);
+    Vertex A(0, "A", "", 0, 0,-1, false, 0.0);
+    Vertex B(1, "B", "", 0, 0,-1, false, 0.0);
+    Vertex C(2, "C", "", 0, 0,-1, false, 0.0);
+    Vertex D(3, "D", "", 0, 0,-1, false, 0.0);
+    Vertex E(4, "E", "", 0, 0,-1, false, 0.0);
     map.addVertex(A);
     map.addVertex(B);
     map.addVertex(C);
