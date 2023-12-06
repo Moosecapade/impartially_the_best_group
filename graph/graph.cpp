@@ -27,7 +27,6 @@ Graph::Graph(int n)
     {
         Vertex v;                           // Create a new vertex to store in the graph
         v.id = i;                           // Set its index
-        v.name = "Vertex " + to_string(i);
         this->vertices.push_back(v);        // Add vertex to the list of vertices
         vector<Edge> list;                  // Used to create an empty list
         this->adjList.push_back(list);      // Add empty list to the adjacency list
