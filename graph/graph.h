@@ -38,7 +38,7 @@ public:
         this->elevation = elev;
         this->prev = prev;
         this->visited = visited;
-        this->distance = distance;
+        this->distance = dist;
     }
 
     /**
@@ -145,7 +145,7 @@ class Graph
 public:
     int numVerts;                 // No. of vertices
     vector<Vertex> vertices;      // The list of vertices
-    vector<vector<Edge>> adjList; // The adjacency list
+    vector<vector<Edge> > adjList; // The adjacency list
 
     /**
      * @brief Purpose: Default constructor. Create an empty graph
