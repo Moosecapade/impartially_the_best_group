@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
     cout << "Course: CS 311 (Data Structures and Algorithms)" << endl;
     cout << "Description: Program to find the shortest route between cities" << endl;
     cout << "-------------------------------------------------------------------" << endl;
-    
+    /*
     ifstream infile;
     Graph cityGraph;
 
@@ -60,12 +60,7 @@ int main(int argc, char* argv[])
         }
     }
     infile.close();
-    
-    
-        
-        
-        
-
+ 
     infile.open("road.txt");
     if (!infile)
     {
@@ -93,7 +88,7 @@ int main(int argc, char* argv[])
     bool valid2 = false;
     int index1 = 0;
     int index2 = 0;
-        for (int i = 0; i < cityGraph.vertices.size(); i++){ //Ryan
+        for (int i = 0; i < (int)cityGraph.vertices.size(); i++){ //Ryan
             counter++;
             if (abb1 == cityGraph.vertices[i].cityCode){
                 valid1 = true;
@@ -106,6 +101,9 @@ int main(int argc, char* argv[])
             if (valid1 == true && valid2 == true){
                 break;
             }
+    
+
+
             
         } //Ryan
         if (valid1 == false ){
@@ -118,6 +116,37 @@ int main(int argc, char* argv[])
     double tempDistance = 0;
     vector<Vertex> newcitypath;
     newcitypath = cityGraph.djikstraAlgorithm(cityGraph.vertices[index1], cityGraph.vertices[index2], tempDistance);
+
+    for(int i = 0; i < (int)newcitypath.size(); i++){
+        cout << newcitypath.at(i).cityCode << " "; 
+    }
+    cout << endl;
+    */
+    Graph map;
+    Vertex A(1, "A", "", 0, 0,-1, false, 0.0);
+    Vertex B(2, "B", "", 0, 0,-1, false, 0.0);
+    Vertex C(3, "C", "", 0, 0,-1, false, 0.0);
+    Vertex D(4, "D", "", 0, 0,-1, false, 0.0);
+    Vertex E(5, "E", "", 0, 0,-1, false, 0.0);
+    map.addVertex(A);
+    map.addVertex(B);
+    map.addVertex(C);
+    map.addVertex(D);
+    map.addVertex(E);
+
+    map.addUndirectedEdge(0, 1, 1);
+    map.addUndirectedEdge(0, 3, 2);
+    map.addUndirectedEdge(1, 2, 5);
+    map.addUndirectedEdge(1, 4, 3);
+    map.addUndirectedEdge(2, 4, 4);
+
+    double distance = 0.0;
+    vector<Vertex> shortPath = map.djikstraAlgorithm(A, C, distance);
+
+    for(int i = 0; i < (int)shortPath.size(); i++){
+        cout << shortPath.at(i).cityCode << " " ;
+    }
+    cout << endl;
 
     return 0;
 }
