@@ -292,16 +292,23 @@ vector<Vertex> Graph::djikstraAlgorithm(Vertex start, Vertex end, double& distan
     {
         v.distance = numeric_limits<double>::infinity();
         v.prev = -1;
+        v.visited = false;
     }
 
-    start.distance = 0;  // Starting vertex has 0 distance
-    priorityQueue.insert(start);
+    for (Vertex& v : this->vertices)
+    {
+        if (v.id == start.id)
+        {
+            v.distance = 0;
+            priorityQueue.insert(v);
+        }
+    }
 
     // While the queue is not empty
     while (priorityQueue.get_count() > 0)
     {
         Vertex current = priorityQueue.removeMin();  // Get vertex with minimum distance from start
-        current.visited = true;
+        this->vertices[current.id].visited = true;
 
         // For each neighbor of vertex current calculate distance and insert neighbor into the queue
         for (int i = 0; i < (int)this->adjList[current.id].size(); ++i)
@@ -312,15 +319,11 @@ vector<Vertex> Graph::djikstraAlgorithm(Vertex start, Vertex end, double& distan
             // If the shortest path has not yet been found for neighbor
             if (neighbor.visited == false)
             {
-                cout << "neighbor not visited" << endl;
-                cout << "NewDistance: " << newDistance << endl;
-                cout << "Neighbor distance: " << neighbor.distance << endl;
                 // If the new path to the neighbor is shorter
                 if (newDistance < neighbor.distance)
                 {
                     // Update the previous vertex and distance
                     neighbor.prev = current.id;
-                    cout << "Neighbor prev in loop: " << neighbor.prev << endl;
                     neighbor.distance = newDistance;
 
                     Vertex* verticesInQueue = priorityQueue.get_heaparray();  // Used to get vertices inside the priority queue
@@ -371,7 +374,6 @@ vector<Vertex> Graph::djikstraAlgorithm(Vertex start, Vertex end, double& distan
         }
     }
     int previous = temp[0].prev;  // Used to store index of previous vertex, is set to prev of end vertex
-    std::cout << "previous: " << previous << endl;
     // Fill the temporary list with the shortest path in reverse order
     while (previous != -1)
     {
@@ -381,9 +383,9 @@ vector<Vertex> Graph::djikstraAlgorithm(Vertex start, Vertex end, double& distan
 
     for (Vertex v : temp)
     {
-        std::cout << "reverse order" << endl;
-        std::cout << v.cityCode << endl;
+        std::cout << v.cityCode << " ";
     }
+    cout << endl;
 
     // Use the path in reverse order to fill the vector with the path in order
     for (int i = temp.size() - 1; i >= 0; --i)
