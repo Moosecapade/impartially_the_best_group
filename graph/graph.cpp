@@ -380,12 +380,6 @@ vector<Vertex> Graph::djikstraAlgorithm(Vertex start, Vertex end, double& distan
         previous = vertices[previous].prev;
     }
 
-    for (Vertex v : temp)
-    {
-        std::cout << v.cityCode << " ";
-    }
-    cout << endl;
-
     // Use the path in reverse order to fill the vector with the path in order
     for (int i = temp.size() - 1; i >= 0; --i)
     {
