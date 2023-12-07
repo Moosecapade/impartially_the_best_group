@@ -11,6 +11,16 @@ Describe the overall design of your program.
 
     What algorithm did you choose for implementing the shortest path problem? Why this algorithm is applicable here?  
     What classes do you use or add? Why do you choose to use those classes?  
+      The algorithm we used to find the shortest path is Dijkstra's Algorithm. This algorithm was applicable because it finds the shortest path
+      for every city based on a starting city. Since the user enters a starting and ending city, this algorithm can be used to find the shortest
+      path from the starting city to every other city. 
+      The classes we used are a Graph class, Vertex class, and Heap class. The Graph class is used to represent the cities and the connections
+      between cities. It consist of vertices which are cities and edges which are the roads connecting cities. The Vertex class is used to 
+      store information about a city including its index in the graph, name, city code, population, elevation, distance from a starting city, what the 
+      previous city in the shortest path is, and whether it has been visited in Dijkstra's algorithm. The Vertex class is used in both
+      the Graph class and Heap class. In the Graph class, the Vertex class is used to represent cities. In the Heap class, the Vertex class
+      is the element being stored inside the Heap. The Heap class is a minimum Heap and is used to create a priority queue of cities based on
+      their distance from a starting city. The Heap class is used in Dijkstra's algorithm as part of the implementation.
 
 System Implementation  
 
