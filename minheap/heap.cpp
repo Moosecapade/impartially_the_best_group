@@ -353,7 +353,7 @@ void Heap::changeKey(int i, double new_val) {
     
     this->heaparray[i].distance = new_val;   // change the element
 
-    if(this->heaparray[i].distance > this->heaparray[(i - 1) / 2].distance) percolateUp(i); // if parent is less than this node percolate up
+    if(this->heaparray[i].distance < this->heaparray[(i - 1) / 2].distance) percolateUp(i); // if parent is greater than this node percolate up
     else percolateDown(i);
 
 }
