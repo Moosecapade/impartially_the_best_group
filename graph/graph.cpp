@@ -55,7 +55,6 @@ void Graph::addVertex(Vertex v)
 {
     int index = this->numVerts;            // Used to store id of new vertex
     v.id = index;                          // Set its index
-    v.name = "Vertex " + to_string(index);
     this->vertices.push_back(v);           // Add vertex to the list of vertices
     vector<Edge> list;                     // Used to create an empty adjacency list
     this->adjList.push_back(list);         // Add empty list to the adjacency list
@@ -283,34 +282,42 @@ void Graph::printGraph()
  * @param &distance: Distance of the shortest path, is returned by reference 
  * @return vector<vertex>: The path taken to get from start to end
  */
-vector<Vertex> Graph::djikstraAlgorithm(Vertex start, Vertex end, double& distance)
+vector<Vertex> Graph::dijkstraAlgorithm(Vertex start, Vertex end, double& distance)
 {
     Heap priorityQueue;  // Stores vertices with priority based on distance from start.
 
     // Set all vertices to have infinite distance and no prev vertex
-    for (Vertex v : this->vertices)
+    for (Vertex& v : this->vertices)
     {
         v.distance = numeric_limits<double>::infinity();
         v.prev = -1;
+        v.visited = false;
     }
 
-    start.distance = 0;  // Starting vertex has 0 distance
-    priorityQueue.insert(start);
+    for (Vertex& v : this->vertices)
+    {
+        if (v.id == start.id)
+        {
+            v.distance = 0;
+            priorityQueue.insert(v);
+        }
+    }
 
     // While the queue is not empty
     while (priorityQueue.get_count() > 0)
     {
         Vertex current = priorityQueue.removeMin();  // Get vertex with minimum distance from start
-        current.visited = true;
+        this->vertices[current.id].visited = true;
 
         // For each neighbor of vertex current calculate distance and insert neighbor into the queue
         for (int i = 0; i < (int)this->adjList[current.id].size(); ++i)
         {
             Vertex& neighbor = vertices[adjList[current.id][i].to_vertex];          // Get currents neighbor
+            
             double newDistance = current.distance + adjList[current.id][i].weight;  // Calculate distance to neighbor using the current vertex
 
             // If the shortest path has not yet been found for neighbor
-            if (neighbor.visited == false)
+            if (neighbor.visited == false || newDistance < neighbor.distance)
             {
                 // If the new path to the neighbor is shorter
                 if (newDistance < neighbor.distance)
@@ -367,7 +374,6 @@ vector<Vertex> Graph::djikstraAlgorithm(Vertex start, Vertex end, double& distan
         }
     }
     int previous = temp[0].prev;  // Used to store index of previous vertex, is set to prev of end vertex
-
     // Fill the temporary list with the shortest path in reverse order
     while (previous != -1)
     {

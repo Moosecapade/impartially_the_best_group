@@ -349,11 +349,11 @@ void heapSort(T values[], int length) {
      * @param i the position of the element to be decreased
      * @param value the new value
      */
-void Heap::changeKey(int i, T new_val) {
+void Heap::changeKey(int i, double new_val) {
     
-    this->heaparray[i] = new_val;   // change the element
+    this->heaparray[i].distance = new_val;   // change the element
 
-    if(this->heaparray[i] > this->heaparray[(i - 1) / 2]) percolateUp(i); // if parent is less than this node percolate up
+    if(this->heaparray[i].distance > this->heaparray[(i - 1) / 2].distance) percolateUp(i); // if parent is less than this node percolate up
     else percolateDown(i);
 
 }

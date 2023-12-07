@@ -167,7 +167,7 @@ public:
      * @param i the position of the element to be decreased
      * @param value the new value
      */
-    void changeKey(int i, T new_val);
+    void changeKey(int i, double new_val);
 
     // Helper functions.
     /**

@@ -38,7 +38,7 @@ public:
         this->elevation = elev;
         this->prev = prev;
         this->visited = visited;
-        this->distance = distance;
+        this->distance = dist;
     }
 
     /**
@@ -145,7 +145,7 @@ class Graph
 public:
     int numVerts;                 // No. of vertices
     vector<Vertex> vertices;      // The list of vertices
-    vector<vector<Edge>> adjList; // The adjacency list
+    vector<vector<Edge> > adjList; // The adjacency list
 
     /**
      * @brief Purpose: Default constructor. Create an empty graph
@@ -223,6 +223,6 @@ public:
  * @param &distance: Distance of the shortest path, is returned by reference 
  * @return vector<vertex>: The path taken to get from start to end
  */
-vector<Vertex> djikstraAlgorithm(Vertex start, Vertex end, double& distance);
+vector<Vertex> dijkstraAlgorithm(Vertex start, Vertex end, double& distance);
 
 };
