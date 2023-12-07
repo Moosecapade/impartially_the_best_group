@@ -143,7 +143,7 @@ int main(int argc, char* argv[])
 
     double tempDistance = 0;
     vector<Vertex> newcitypath;
-    newcitypath = cityGraph.djikstraAlgorithm(cityGraph.vertices[index1], cityGraph.vertices[index2], tempDistance);
+    newcitypath = cityGraph.dijkstraAlgorithm(cityGraph.vertices[index1], cityGraph.vertices[index2], tempDistance);
 
     cout << "The shortest distance from " << cityGraph.vertices.at(index1).name << " to " << cityGraph.vertices.at(index2).name << " is " << tempDistance << " through the route:" ;
 
