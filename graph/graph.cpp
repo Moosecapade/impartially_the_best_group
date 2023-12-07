@@ -52,9 +52,9 @@ Graph::~Graph()
  */
 void Graph::addVertex(Vertex v)
 {
-    int index = this->numVerts;            // Used to store id of new vertex
-    v.id = index;                          // Set its index
-    v.name = "Vertex " + to_string(index);
+    //int index = this->numVerts;            // Used to store id of new vertex
+    //v.id = index;                          // Set its index
+    //v.name = "Vertex " + to_string(index);
     this->vertices.push_back(v);           // Add vertex to the list of vertices
     vector<Edge> list;                     // Used to create an empty adjacency list
     this->adjList.push_back(list);         // Add empty list to the adjacency list
