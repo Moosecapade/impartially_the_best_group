@@ -33,7 +33,7 @@ int main(int argc, char* argv[])
         int population;
         int elevation;
 
-        while (!infile.eof())
+        while (infile)
         {
             // uncomment couts for testing
             //cout << "Getting input: \n";
@@ -62,7 +62,7 @@ int main(int argc, char* argv[])
             */
            
             // add vertex to graph
-            cityGraph.addVertex(city);
+            if(infile) cityGraph.addVertex(city);
         }
     }
     infile.close();
@@ -82,7 +82,7 @@ int main(int argc, char* argv[])
             infile >> fromCity;
             infile >> toCity;
             infile >> distance;
-            cityGraph.addDirectedEdge(fromCity, toCity, distance);
+            if(infile) cityGraph.addDirectedEdge(fromCity, toCity, distance);
         }
     }
 
