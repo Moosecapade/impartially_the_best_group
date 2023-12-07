@@ -2,7 +2,7 @@ Problem Description
   
 In this section, describe the problem you are solving and the functionalities of your program to solve the problem. 
   The main purpose of our program is to solve the problem of finding the shortest route between two predetermined points.  A user will enter the two letter abbreviations of two cities and the program will calculate the shortest path between those two cities.
-  The program will display a list of the cities a person will need to visit to reach their intended destination in the shortest possible path.
+  The program will display an ordered list of the cities a person will need to visit to reach their intended destination in the shortest possible path.
   The program has an additional function of displaying fun facts about the starting city and destination city like population size and elevation.
 
 Program Design  
