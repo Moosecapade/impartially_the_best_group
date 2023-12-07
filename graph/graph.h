@@ -223,6 +223,6 @@ public:
  * @param &distance: Distance of the shortest path, is returned by reference 
  * @return vector<vertex>: The path taken to get from start to end
  */
-vector<Vertex> djikstraAlgorithm(Vertex start, Vertex end, double& distance);
+vector<Vertex> dijkstraAlgorithm(Vertex start, Vertex end, double& distance);
 
 };
