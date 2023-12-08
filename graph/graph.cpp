@@ -294,12 +294,14 @@ vector<Vertex> Graph::dijkstraAlgorithm(Vertex start, Vertex end, double& distan
         v.visited = false;
     }
 
+    // Find the starting vertex in the graph and insert it into the priority queue
     for (Vertex& v : this->vertices)
     {
+        // If the starting vertex is found
         if (v.id == start.id)
         {
-            v.distance = 0;
-            priorityQueue.insert(v);
+            v.distance = 0;            // Starting vertex has distance of 0
+            priorityQueue.insert(v);   // Insert starting vertex into priority queue
         }
     }
 
@@ -307,14 +309,14 @@ vector<Vertex> Graph::dijkstraAlgorithm(Vertex start, Vertex end, double& distan
     while (priorityQueue.get_count() > 0)
     {
         Vertex current = priorityQueue.removeMin();  // Get vertex with minimum distance from start
-        this->vertices[current.id].visited = true;
+        this->vertices[current.id].visited = true;   // Mark it as visited indicating shortest path has been found
 
         // For each neighbor of vertex current calculate distance and insert neighbor into the queue
         for (int i = 0; i < (int)this->adjList[current.id].size(); ++i)
         {
             Vertex& neighbor = vertices[adjList[current.id][i].to_vertex];          // Get currents neighbor
             
-            double newDistance = current.distance + adjList[current.id][i].weight;  // Calculate distance to neighbor using the current vertex
+            double newDistance = current.distance + adjList[current.id][i].weight;  // Calculate distance to neighbor using the current vertex and edge weight
 
             // If the shortest path has not yet been found for neighbor
             if (neighbor.visited == false)
@@ -374,11 +376,12 @@ vector<Vertex> Graph::dijkstraAlgorithm(Vertex start, Vertex end, double& distan
         }
     }
     int previous = temp[0].prev;  // Used to store index of previous vertex, is set to prev of end vertex
-    // Fill the temporary list with the shortest path in reverse order
+    
+    // Fill the temporary list with the shortest path in reverse order until the starting vertex is reached
     while (previous != -1)
     {
-        temp.push_back(vertices[previous]);
-        previous = vertices[previous].prev;
+        temp.push_back(vertices[previous]);  // Insert the current vertex
+        previous = vertices[previous].prev;  // Get the previous vertex
     }
 
     // Use the path in reverse order to fill the vector with the path in order
@@ -387,5 +390,5 @@ vector<Vertex> Graph::dijkstraAlgorithm(Vertex start, Vertex end, double& distan
         shortestPath.push_back(temp[i]);
     }
 
-    return shortestPath; 
+    return shortestPath;  // Return the shortest path from start to end
 }
