@@ -189,8 +189,8 @@ void Heap::percolateDown(int index) {
 
     if(2 * index + 2 < count){ // index has two children
 
-        // swap index with thegreatest of its children, if any
-        if(this->heaparray[2 * index + 2] > this->heaparray[2 * index + 1]) {
+        // swap index with the smallest of its children, if any
+        if(this->heaparray[2 * index + 2] < this->heaparray[2 * index + 1]) {
             if(this->heaparray[index] > this->heaparray[2 * index + 2]){
                 swap(index, 2 * index + 2);
                 percolateDown(2 * index + 2);
