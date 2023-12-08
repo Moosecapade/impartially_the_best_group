@@ -216,13 +216,13 @@ public:
      */
     void printGraph();
 
-    /**
- * @brief Purpose: Finds the shortest path between 2 cities using Djikstras Algorithm
- * @param start: Starting vertex
- * @param end: Ending vertex
- * @param &distance: Distance of the shortest path, is returned by reference 
- * @return vector<vertex>: The path taken to get from start to end
- */
-vector<Vertex> dijkstraAlgorithm(Vertex start, Vertex end, double& distance);
+   /**
+    * @brief Purpose: Finds the shortest path between 2 cities using Djikstras Algorithm
+    * @param start: Starting vertex
+    * @param end: Ending vertex
+    * @param &distance: Distance of the shortest path, is returned by reference 
+    * @return vector<vertex>: The path taken to get from start to end
+    */
+    vector<Vertex> dijkstraAlgorithm(Vertex start, Vertex end, double& distance);
 
 };
