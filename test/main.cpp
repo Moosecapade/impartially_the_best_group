@@ -62,11 +62,13 @@ int main(int argc, char* argv[])
             */
            
             // add vertex to graph
-            if(infile) cityGraph.addVertex(city);
+            if(infile) cityGraph.addVertex(city); // if statement here stops double input of last element
+                                                  //     infile doesn't return false until AFTER it reads eof
         }
     }
     infile.close();
- 
+
+    // read in road.txt to build the edges of the graph
     infile.open("road.txt");
     if (!infile)
     {
@@ -82,11 +84,14 @@ int main(int argc, char* argv[])
             infile >> fromCity;
             infile >> toCity;
             infile >> distance;
-            if(infile) cityGraph.addDirectedEdge(fromCity, toCity, distance);
+            if(infile) cityGraph.addDirectedEdge(fromCity, toCity, distance); // if statement for the same reason when reading cities.txt 
         }
     }
 
     // Read edges from input file (roads)
+    // looking for input citycodes in the graph
+    // sets valid# true if found, otherwise false
+    // sets index# to the index of the city if found
     int counter = 0; //Ryan
     string abb1 = argv[1];
     string abb2 = argv[2];
@@ -115,6 +120,8 @@ int main(int argc, char* argv[])
     }else if (valid1 == false && valid2 == false){
         cout << "Invalid City Codes: " << abb1 << " and " << abb2 << endl;
     }
+    // checks if either city code is invalid
+    // prints usage and list oy valid cities if invalid input detected
     if(valid1 == false || valid2 == false){
         cout << "usage: prog9 city_code1 city_code2" << endl;
         cout << "valid city codes follow:" << endl;
@@ -125,8 +132,11 @@ int main(int argc, char* argv[])
     } // at this point if the program is still running we have two valid city codes
     // now checking a path exists between the two cities
 
+    // BFS gives us all connected vertices in the graph that are connected to the start node
     vector<int> BFS = cityGraph.BreadthFirstSearch(index1);
 
+    // if end node is not in the returned vector, then no path exists between the cities
+    // no path triggers usage message and list of valid city codes
     if(notInVector(index2, BFS)){
         cout << "No route from " << cityGraph.vertices.at(index1).name << " to " << cityGraph.vertices.at(index2).name << endl;
         cout << "usage: prog9 city_code1 city_code2" << endl;
@@ -137,16 +147,21 @@ int main(int argc, char* argv[])
         return 0;
     }// if program has survived, the two city codes exist in the graph AND a path exists between them.
 
+    //prints: From city: 'cityname', population '#', elevation '#'
     cout << "From City: " << cityGraph.vertices.at(index1).name << ", population " << cityGraph.vertices.at(index1).population << ", elevation " << cityGraph.vertices.at(index1).elevation << endl;
     cout << "From City: " << cityGraph.vertices.at(index2).name << ", population " << cityGraph.vertices.at(index2).population << ", elevation " << cityGraph.vertices.at(index2).elevation << endl;
         
 
+    // tempDistance gets the distance of the path returned by dijkstra
+    // newcitypath gets the path
     double tempDistance = 0;
     vector<Vertex> newcitypath;
     newcitypath = cityGraph.dijkstraAlgorithm(cityGraph.vertices[index1], cityGraph.vertices[index2], tempDistance);
 
+    // prints: The shortest distance from 'cityname' to 'cityname' is '#'
     cout << "The shortest distance from " << cityGraph.vertices.at(index1).name << " to " << cityGraph.vertices.at(index2).name << " is " << tempDistance << " through the route:" ;
 
+    // print the shortest path
     cout << newcitypath.at(0).name; 
     for(int i = 1; i < (int)newcitypath.size(); i++){
         cout << "->" << newcitypath.at(i).name; 
@@ -184,6 +199,13 @@ int main(int argc, char* argv[])
     return 0;
 }
 
+/**
+ * @brief searches a vector<int> for an int value
+ * @param val value to be searcrhed for
+ * @param vec vector to be searched in
+ * 
+ * @return true if val is not found, otherwise false
+ */
 bool notInVector(int val, vector<int> vec){
     for(int i = 0; i < (int)vec.size(); i++){
         if(vec.at(i) == val) return false;
