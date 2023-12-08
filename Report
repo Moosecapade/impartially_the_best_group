@@ -38,12 +38,25 @@ Describe the details of your implementations. Did you run into problems in your 
   
 Results  
   
-    Did your results match the output in the “sample_results.txt” file?  
+    Did your results match the output in the “sample_results.txt” file?
+      Our output did match the "sample_results.txt" file output.
+
     What are your answers to the following questions:  
-        The shortest distance and path from FI to GG  
-        The shortest distance and path from PD to PM  
-        The shortest distance and path from PM to PD  
-        The Shortest distance and path from SB to PR  
+        The shortest distance and path from FI to GG
+          The shortest distance from Irwin to Grpve is 24.
+          The route is through IRWIN->PARKER->GRPVE.
+
+        The shortest distance and path from PD to PM
+          The shortest distance from Parker to Pomona is 133.
+          The route is through PARKER->BOSSTOWN->TORRANCE->POMONA.
+
+        The shortest distance and path from PM to PD
+          The shortest distance from POMONA to PARKER is 357.
+          The route is through POMONA->EDWIN->ANAHEIM->VICTORVILLE->CHINO->GRPVE->IRWIN->PARKER.
+
+        The Shortest distance and path from SB to PR
+          The shortest distance from BERNADINO to RIVERA is 152.
+          The route is through BERNADINO->ISABELLA->BREA->CHINO->RIVERA
 
 Conclusion  
   
