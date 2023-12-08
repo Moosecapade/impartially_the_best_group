@@ -317,7 +317,7 @@ vector<Vertex> Graph::dijkstraAlgorithm(Vertex start, Vertex end, double& distan
             double newDistance = current.distance + adjList[current.id][i].weight;  // Calculate distance to neighbor using the current vertex
 
             // If the shortest path has not yet been found for neighbor
-            if (neighbor.visited == false || newDistance < neighbor.distance)
+            if (neighbor.visited == false)
             {
                 // If the new path to the neighbor is shorter
                 if (newDistance < neighbor.distance)
