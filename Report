@@ -4,6 +4,7 @@ In this section, describe the problem you are solving and the functionalities of
   The main purpose of our program is to solve the problem of finding the shortest route between two predetermined points.  A user will enter the two letter abbreviations of two cities and the program will calculate the shortest path between those two cities.
   The program will display an ordered list of the cities a person will need to visit to reach their intended destination in the shortest possible path.
   The program has an additional function of displaying fun facts about the starting city and destination city like population size and elevation.
+  There is also a secret function to where the program will tell the user they entered an invalid city ID, and the program will even mention which of the two entered IDs was the invalid one.
 
 Program Design  
 
@@ -24,7 +25,16 @@ Describe the overall design of your program.
 
 System Implementation  
 
-Describe the details of your implementations. Did you run into problems in your implementation? How did you overcome those problems?  
+Describe the details of your implementations. Did you run into problems in your implementation? How did you overcome those problems?
+    A major problem with making this assignment came from implementing the Dijkstra Algorithm.  
+    We were testing our search algorithm by comparing it to the provided example output but for some strange reason we would always get a different number of cities that needed to be passed through to reach the destination.  
+    We decided to draw the whole graph on draw.io so we can manually see where and why our search algorithm was making wrong turns.  
+    We pulled up the roads.txt file and found out there were 78 roads between the 20 cities.  
+    After drawing 5 roads we saw that the road from Anaheim to Bakersfield was 732 but the road from Bakersfield to Anaheim was 66.  
+    This meant that our algorithm was written for an undirected graph and was being applied to a directed graph.  
+    The reason our output was so different from the example output was because our search algorithm was going the wrong way on a one-way road.  
+    We had to quickly retrofit the entire search algorithm to pay attention to which roads it is allowed to go down at any given time.  
+    After the retrofitting was done, we started getting the same output as the example document.
   
 Results  
   
@@ -38,3 +48,10 @@ Results
 Conclusion  
   
 Give the conclusion and summary of your project. Did it solve the intended problem successfully?  What functionalities does your program have? What lessons have you learned from this assignment?  
+    Our program was able to successfully answer any direction-based questions about the graph.  
+    The program will state which city IDs were valid and will display some fun facts about each of the two cities provided in the command line.  
+    The most important lesson we learned in this assignment is to never make assumptions about input files because one bad assumption can completely ruin any written code.  
+    We assumed that we would be working with an undirected graph, but we were working with a directed graph the whole time.  
+    We should have opened up both of the input files and read them to see what kind of graph would be formed from their provided information.  
+    We ended up wasting a whole day just to fix a major mistake that would never have happened in the first place if we did our due diligence.  
+    We will make sure that will not happen again next time.
